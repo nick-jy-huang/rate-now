@@ -38,14 +38,14 @@ export default function CurrencyConverter() {
       if (data.rate) {
         setRate(data.rate);
         setToAmount(Number((fromAmount * data.rate).toFixed(4)));
-        setLastUpdated(data.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : '');
+        setLastUpdated(data.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : 'None');
       } else {
         setRate(null);
         setToAmount(0);
-        setError('查無匯率');
+        setError('Currency not found');
       }
     } catch (e) {
-      setError('API 連線失敗');
+      setError('API connected failed');
     } finally {
       setLoading(false);
     }
