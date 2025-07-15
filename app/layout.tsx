@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/styles/globals.css';
+import '@/utils/remove';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -13,13 +14,13 @@ const geistMono = Geist_Mono({
 
 export function generateMetadata() {
   return {
-    title: '匯率換算',
-    description: '匯率換算',
+    title: 'Rate Now',
+    description: 'description',
     openGraph: {
       type: 'website',
-      title: '匯率換算',
+      title: 'Rate Now',
       description: 'description',
-      url: 'https://quotation-app-zeta.vercel.app',
+      url: 'https://rate-now.vercel.app/',
       images: [
         {
           url: 'https://rate-now.vercel.app/image.jpg',
@@ -27,9 +28,6 @@ export function generateMetadata() {
           height: 630,
         },
       ],
-    },
-    icons: {
-      icon: 'https://rate-now.vercel.app/favicon.png',
     },
   };
 }
@@ -49,23 +47,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#2563eb" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="icon" href="/icon/favicon.ico" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="bg-animated-tiles"></div>
         {children}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/sw.js');
-            });
-          }
-        `,
-          }}
-        />
       </body>
     </html>
   );
