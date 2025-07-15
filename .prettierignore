@@ -1,0 +1,7 @@
+node_modules
+build
+dist
+.next
+coverage
+public 
+pnpm-lock.yaml

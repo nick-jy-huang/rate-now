@@ -1,24 +1,36 @@
 {
-  "name": "nextjs",
+  "name": "rate-now",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "npx prettier --write .",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
+    "dayjs": "^1.11.13",
+    "next": "15.4.1",
+    "next-pwa": "^5.6.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.1"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-v8": "3.2.4",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.13",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   }
 }
