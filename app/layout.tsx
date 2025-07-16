@@ -32,7 +32,7 @@ export function generateMetadata() {
       ],
     },
     icons: {
-      icon: 'https://rate-now.vercel.ap/favicon.png',
+      icon: 'https://rate-now.vercel.ap/icon/favicon.ico',
     },
   };
 }

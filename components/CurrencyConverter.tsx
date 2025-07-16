@@ -132,11 +132,9 @@ export default function CurrencyConverter() {
         </div>
       </div>
 
-      <div className="mt-4 flex-col items-center justify-between gap-2 text-xs md:flex-row">
-        <div className="flex items-center gap-2">
-          <UpdateButton loading={loading} onClick={handleManualUpdate} />
-          <LastUpdated time={lastUpdated} />
-        </div>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
+        <UpdateButton loading={loading} onClick={handleManualUpdate} />
+        <LastUpdated time={lastUpdated} />
       </div>
     </div>
   );
