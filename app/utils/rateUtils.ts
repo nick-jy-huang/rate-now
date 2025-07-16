@@ -1,4 +1,4 @@
-import { CURRENCIES } from '@/constants';
+import { CURRENCIES } from '@/app/constants';
 
 export async function fetchRates(apiUrl: string) {
   const url = apiUrl;

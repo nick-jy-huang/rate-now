@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { CURRENCIES, SYMBOLS } from '@/constants';
+import { CURRENCIES, SYMBOLS } from '@/app/constants';
 
 export async function GET() {
   const map: Record<string, string> = {};
@@ -7,4 +7,4 @@ export async function GET() {
     map[cur] = SYMBOLS[cur] || '';
   }
   return NextResponse.json(map);
-} 
+}

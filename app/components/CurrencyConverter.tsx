@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import dayjs from 'dayjs';
-import { CURRENCY_NAME_MAP } from '@/constants';
+import { CURRENCY_NAME_MAP } from '@/app/constants';
 
 export default function CurrencyConverter() {
   const [currencies, setCurrencies] = useState<string[]>([]);

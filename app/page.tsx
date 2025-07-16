@@ -1,6 +1,6 @@
 'use client';
 
-import CurrencyConverter from '@/components/CurrencyConverter';
+import CurrencyConverter from '@/app/components/CurrencyConverter';
 
 export default function Home() {
   return (

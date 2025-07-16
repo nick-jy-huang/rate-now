@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
-import '@/styles/globals.css';
-import '@/utils/remove';
+import '@/app/styles/globals.css';
+import '@/app/utils/remove';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,6 +28,9 @@ export function generateMetadata() {
           height: 630,
         },
       ],
+    },
+    icons: {
+      icon: 'https://rate-now.vercel.ap/favicon.png',
     },
   };
 }
