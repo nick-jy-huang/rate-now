@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma": "pnpm prisma generate",
+    "prisma": "prisma generate",
     "prettier": "npx prettier --write .",
     "test": "vitest run --coverage"
   },
