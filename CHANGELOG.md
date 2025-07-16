@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/nick-jy-huang/rate-now/compare/v1.1.0...v1.1.1) (2025-07-16)
+
+
+### Bug Fixes
+
+* bug ([e94dae9](https://github.com/nick-jy-huang/rate-now/commit/e94dae9b376e029b1d612b469d89a89e73e055f8))
+
 ## [1.1.0](https://github.com/nick-jy-huang/rate-now/compare/v1.0.0...v1.1.0) (2025-07-16)
 
 
