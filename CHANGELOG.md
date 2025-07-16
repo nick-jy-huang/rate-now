@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/nick-jy-huang/rate-now/compare/v1.1.1...v1.2.0) (2025-07-16)
+
+
+### Features
+
+* db migration to prisma ([1f59a32](https://github.com/nick-jy-huang/rate-now/commit/1f59a32046b4328ad34772543dc656f067861b51))
+
+
+### Bug Fixes
+
+* apporved prisma ([0480a6b](https://github.com/nick-jy-huang/rate-now/commit/0480a6b340e011eb4d6f275e3aa17f9b84afead2))
+* build script ([b59ac04](https://github.com/nick-jy-huang/rate-now/commit/b59ac046e5883b043844343d17b4187c04ac6379))
+* pnpm script ([4720be2](https://github.com/nick-jy-huang/rate-now/commit/4720be281a9dac94f6a96123908ad3b6b11f3cec))
+* prisma script ([d6196bd](https://github.com/nick-jy-huang/rate-now/commit/d6196bdabfff52c55268da78fca148280c0da3ee))
+* script ([8df9396](https://github.com/nick-jy-huang/rate-now/commit/8df939691983a853e1e3bc5da110eed6777bdb0f))
+
 ## [1.1.1](https://github.com/nick-jy-huang/rate-now/compare/v1.1.0...v1.1.1) (2025-07-16)
 
 
