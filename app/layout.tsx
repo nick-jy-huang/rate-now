@@ -15,15 +15,17 @@ const geistMono = Geist_Mono({
 export function generateMetadata() {
   return {
     title: 'Rate Now',
-    description: 'description',
+    description:
+      '即時貨幣匯率查詢與轉換工具。Rate Now 幫你快速換算全球幣值，支援多國貨幣，自動更新匯率，換算無煩惱。',
     openGraph: {
       type: 'website',
       title: 'Rate Now',
-      description: 'description',
+      description:
+        '即時貨幣匯率查詢與轉換工具。Rate Now 幫你快速換算全球幣值，支援多國貨幣，自動更新匯率，換算無煩惱。',
       url: 'https://rate-now.vercel.app/',
       images: [
         {
-          url: 'https://rate-now.vercel.app/image.jpg',
+          url: 'https://rate-now.vercel.app/0.png',
           width: 1200,
           height: 630,
         },
