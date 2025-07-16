@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm prisma generate && pnpm run build",
+    "build": "pnpm run build",
     "start": "next start",
     "lint": "next lint",
+    "prisma": "pnpm prisma generate",
     "prettier": "npx prettier --write .",
     "test": "vitest run --coverage"
   },
