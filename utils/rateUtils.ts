@@ -21,7 +21,11 @@ export async function fetchRates(apiUrl: string) {
   return rates;
 }
 
-export function getExchangeRate(from: string, to: string, rates: Record<string, number>) {
+export function getExchangeRate(
+  from: string,
+  to: string,
+  rates: Record<string, number>,
+) {
   if (rates[from] && rates[to]) {
     return rates[to] / rates[from];
   }

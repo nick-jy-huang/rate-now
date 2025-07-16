@@ -10,7 +10,11 @@ export function readCache(cacheFile: string) {
   }
 }
 
-export function writeCache(cacheFile: string, history: any[], lastUpdated: number) {
+export function writeCache(
+  cacheFile: string,
+  history: any[],
+  lastUpdated: number,
+) {
   const data = { history, lastUpdated };
   fs.writeFileSync(cacheFile, JSON.stringify(data, null, 2), 'utf-8');
 }

@@ -21,14 +21,24 @@ export async function GET(req: NextRequest) {
 
   if (cache && cache.history.some((d: any) => d.date === today)) {
     if (from && to) {
-      const todayRates = cache.history.find((d: any) => d.date === today)?.rates;
+      const todayRates = cache.history.find(
+        (d: any) => d.date === today,
+      )?.rates;
       if (todayRates) {
         const rate = getExchangeRate(from, to, todayRates);
         if (rate !== null) {
-          return NextResponse.json({ from, to, rate, lastUpdated: cache.lastUpdated });
+          return NextResponse.json({
+            from,
+            to,
+            rate,
+            lastUpdated: cache.lastUpdated,
+          });
         }
       }
-      return NextResponse.json({ error: 'Currency not found' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Currency not found' },
+        { status: 400 },
+      );
     }
     return NextResponse.json(cache);
   }
@@ -36,7 +46,9 @@ export async function GET(req: NextRequest) {
   try {
     const rates = await fetchRates(RTER_API_URL as string);
     let history = cache?.history || [];
-    history = history.filter((d: any) => isWithinDays(d.date, today, HISTORY_DAYS));
+    history = history.filter((d: any) =>
+      isWithinDays(d.date, today, HISTORY_DAYS),
+    );
     history.push({ date: today, rates });
     writeCache(CACHE_FILE, history, now);
 
@@ -45,13 +57,19 @@ export async function GET(req: NextRequest) {
       if (rate !== null) {
         return NextResponse.json({ from, to, rate, lastUpdated: now });
       } else {
-        return NextResponse.json({ error: 'Currency not found' }, { status: 400 });
+        return NextResponse.json(
+          { error: 'Currency not found' },
+          { status: 400 },
+        );
       }
     }
     return NextResponse.json({ history, lastUpdated: now });
   } catch (e) {
     if (cache) return NextResponse.json(cache);
-    return NextResponse.json({ error: 'Failed to fetch rates' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch rates' },
+      { status: 500 },
+    );
   }
 }
 
@@ -62,13 +80,18 @@ export async function POST(req: NextRequest) {
   try {
     const rates = await fetchRates(RTER_API_URL as string);
     let history = cache?.history || [];
-    history = history.filter((d: any) => isWithinDays(d.date, today, HISTORY_DAYS));
+    history = history.filter((d: any) =>
+      isWithinDays(d.date, today, HISTORY_DAYS),
+    );
     history = history.filter((d: any) => d.date !== today);
     history.push({ date: today, rates });
     writeCache(CACHE_FILE, history, now);
     return NextResponse.json({ history, lastUpdated: now });
   } catch (e) {
     if (cache) return NextResponse.json(cache);
-    return NextResponse.json({ error: 'Failed to fetch rates' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch rates' },
+      { status: 500 },
+    );
   }
 }
