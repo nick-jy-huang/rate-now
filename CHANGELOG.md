@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/nick-jy-huang/rate-now/compare/v1.0.0...v1.1.0) (2025-07-16)
+
+
+### Features
+
+* split components ([9e2be7c](https://github.com/nick-jy-huang/rate-now/commit/9e2be7cfd4c170472702f212c6a598e1f53cba34))
+
 ## 1.0.0 (2025-07-16)
 
 
