@@ -84,7 +84,7 @@ export default function CurrencyConverter() {
   };
 
   return (
-    <div className="relative mx-auto flex max-w-xl flex-col items-center gap-4 rounded-xl border-2 bg-white p-4 shadow-lg md:p-8">
+    <div className="relative flex w-full flex-col items-center gap-4 rounded-xl border-2 bg-white p-8 shadow-lg sm:w-2/3 md:w-2/3 lg:w-1/2">
       <div className="pointer-events-auto absolute top-0 left-0 z-10 h-[110px] w-[110px] overflow-hidden">
         <a
           href="https://tw.rter.info"
@@ -186,8 +186,8 @@ export default function CurrencyConverter() {
         </div>
       </div>
 
-      <div className="mt-4 flex-col items-center justify-between gap-2 text-xs md:flex-row">
-        <div className="flex items-center gap-2">
+      <div className="mt-4 items-center justify-between gap-2 text-xs lg:flex-row">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <button
             className="h-8 w-auto cursor-pointer rounded-md border px-3 py-1 duration-300 hover:bg-yellow-500 hover:text-white"
             onClick={handleManualUpdate}
@@ -204,7 +204,7 @@ export default function CurrencyConverter() {
               </div>
             )}
           </button>
-          <div className="text-gray-700 underline">
+          <div className="text-center text-xs text-gray-700 underline">
             {lastUpdated && <span>最後更新匯率時間：{lastUpdated}</span>}
           </div>
         </div>
