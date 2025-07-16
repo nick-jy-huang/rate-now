@@ -1,0 +1,29 @@
+name: Update Rates via API
+
+on:
+  schedule:
+    - cron: '10 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Trigger API to update rates
+        run: |
+          curl -X POST https://rate-now.vercel.app/api/rates
+
+      - name: Download latest rates.json
+        run: |
+          curl -o public/rates.json https://rate-now.vercel.app/rates.json
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/rates.json
+          git commit -m "chore: update rates.json [auto]" || echo "No changes to commit"
+          git push
