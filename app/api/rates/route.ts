@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dayjs from 'dayjs';
-import { readCache, writeCache } from '@/utils/cacheUtils';
-import { getToday, isWithinDays } from '@/utils/dateUtils';
+import { getToday } from '@/utils/dateUtils';
 import { fetchRates, getExchangeRate } from '@/utils/rateUtils';
-import { HISTORY_DAYS, CACHE_FILE } from '@/constants';
+import { prisma } from '@/lib/prisma';
 
 const RTER_API_URL = process.env.RTER_API_URL;
 if (!RTER_API_URL) {
@@ -11,51 +9,25 @@ if (!RTER_API_URL) {
 }
 
 export async function GET(req: NextRequest) {
-  let cache = readCache(CACHE_FILE);
   const today = getToday();
-  const now = dayjs().valueOf();
-
   const { searchParams } = new URL(req.url);
   const from = searchParams.get('from');
   const to = searchParams.get('to');
-
-  if (cache && cache.history.some((d: any) => d.date === today)) {
-    if (from && to) {
-      const todayRates = cache.history.find(
-        (d: any) => d.date === today,
-      )?.rates;
-      if (todayRates) {
-        const rate = getExchangeRate(from, to, todayRates);
-        if (rate !== null) {
-          return NextResponse.json({
-            from,
-            to,
-            rate,
-            lastUpdated: cache.lastUpdated,
-          });
-        }
-      }
-      return NextResponse.json(
-        { error: 'Currency not found' },
-        { status: 400 },
-      );
-    }
-    return NextResponse.json(cache);
-  }
+  const date = searchParams.get('date') || today;
 
   try {
-    const rates = await fetchRates(RTER_API_URL as string);
-    let history = cache?.history || [];
-    history = history.filter((d: any) =>
-      isWithinDays(d.date, today, HISTORY_DAYS),
-    );
-    history.push({ date: today, rates });
-    writeCache(CACHE_FILE, history, now);
-
     if (from && to) {
-      const rate = getExchangeRate(from, to, rates);
-      if (rate !== null) {
-        return NextResponse.json({ from, to, rate, lastUpdated: now });
+      const rateRow = await prisma.rate.findUnique({
+        where: { date_from_to: { date, from, to } },
+      });
+      if (rateRow) {
+        return NextResponse.json({
+          from,
+          to,
+          rate: rateRow.rate,
+          date: rateRow.date,
+          lastUpdated: rateRow.updatedAt,
+        });
       } else {
         return NextResponse.json(
           { error: 'Currency not found' },
@@ -63,11 +35,12 @@ export async function GET(req: NextRequest) {
         );
       }
     }
-    return NextResponse.json({ history, lastUpdated: now });
+
+    const rates = await prisma.rate.findMany({ where: { date } });
+    return NextResponse.json({ date, rates });
   } catch (e) {
-    if (cache) return NextResponse.json(cache);
     return NextResponse.json(
-      { error: 'Failed to fetch rates' },
+      { error: 'Failed to fetch rates from DB' },
       { status: 500 },
     );
   }
@@ -75,22 +48,35 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const today = getToday();
-  const now = dayjs().valueOf();
-  let cache = readCache(CACHE_FILE);
+  const { headers } = req;
+  const host = headers.get('host');
+  const protocol = host?.includes('localhost') ? 'http' : 'https';
+  const baseUrl = `${protocol}://${host}`;
   try {
     const rates = await fetchRates(RTER_API_URL as string);
-    let history = cache?.history || [];
-    history = history.filter((d: any) =>
-      isWithinDays(d.date, today, HISTORY_DAYS),
+    const promises = Object.entries(rates).flatMap(([from, fromRate]) =>
+      Object.entries(rates)
+        .filter(([to]) => to !== from)
+        .map(async ([to]) => {
+          const rate = getExchangeRate(from, to, rates);
+          const res = await fetch(`${baseUrl}/api/rates-db`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ date: today, from, to, rate }),
+          });
+          if (!res.ok) {
+            const errText = await res.text();
+            throw new Error(
+              `Failed to write rate ${from}->${to}: ${res.status} ${errText}`,
+            );
+          }
+        }),
     );
-    history = history.filter((d: any) => d.date !== today);
-    history.push({ date: today, rates });
-    writeCache(CACHE_FILE, history, now);
-    return NextResponse.json({ history, lastUpdated: now });
+    await Promise.allSettled(promises);
+    return NextResponse.json({ message: 'Rates updated in DB' });
   } catch (e) {
-    if (cache) return NextResponse.json(cache);
     return NextResponse.json(
-      { error: 'Failed to fetch rates' },
+      { error: 'Failed to fetch or update rates', detail: String(e) },
       { status: 500 },
     );
   }
