@@ -48,7 +48,6 @@ export default function CurrencyConverter() {
   }, []);
 
   useEffect(() => {
-    if (from === to || !from || !to) return;
     fetchRate(from, to);
   }, [from, to]);
 

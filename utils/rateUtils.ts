@@ -27,7 +27,7 @@ export function getExchangeRate(
   rates: Record<string, number>,
 ) {
   if (rates[from] && rates[to]) {
-    return rates[to] / rates[from];
+    return rates[from] / rates[to];
   }
   return null;
 }
