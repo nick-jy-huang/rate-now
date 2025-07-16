@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "pnpm install && pnpm prisma generate && pnpm run build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "npx prettier --write .",
