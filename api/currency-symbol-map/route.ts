@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { CURRENCIES, SYMBOLS } from '@/app/constants';
+import { CURRENCIES, SYMBOLS } from '@/constants';
 
 export async function GET() {
   const map: Record<string, string> = {};

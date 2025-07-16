@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { CURRENCIES } from '@/app/constants';
+import { CURRENCIES } from '@/constants';
 
 export async function GET() {
   return NextResponse.json(CURRENCIES);
