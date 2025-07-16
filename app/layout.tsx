@@ -49,7 +49,9 @@ export default function RootLayout({
         />
         <link rel="icon" href="/icon/favicon.ico" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <div className="bg-animated-tiles"></div>
         {children}
       </body>

@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from 'react';
-
-const CURRENCIES = [
-  { code: 'USD', name: '美元' },
-  { code: 'EUR', name: '歐元' },
-  { code: 'JPY', name: '日圓' },
-  { code: 'TWD', name: '新台幣' },
-  { code: 'HKD', name: '港幣' },
-  { code: 'GBP', name: '英鎊' },
-  { code: 'AUD', name: '澳幣' },
-  { code: 'CAD', name: '加幣' },
-  { code: 'SGD', name: '新幣' },
-  { code: 'CNY', name: '人民幣' },
-];
-
-function formatNumber(n: number) {
-  return n.toLocaleString(undefined, {
-    maximumFractionDigits: 4,
-  });
-}
+import CountUp from 'react-countup';
+import dayjs from 'dayjs';
+import { CURRENCY_NAME_MAP } from '@/constants';
 
 export default function CurrencyConverter() {
+  const [currencies, setCurrencies] = useState<string[]>([]);
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('TWD');
   const [fromAmount, setFromAmount] = useState(1);
@@ -29,16 +14,22 @@ export default function CurrencyConverter() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchRate = async (f = from, t = to) => {
-    setLoading(true);
+  const fetchRate = async (f: string, t: string) => {
     setError('');
     try {
       const res = await fetch(`/api/rates?from=${f}&to=${t}`);
       const data = await res.json();
       if (data.rate) {
         setRate(data.rate);
-        setToAmount(Number((fromAmount * data.rate).toFixed(4)));
-        setLastUpdated(data.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : 'None');
+
+        const toAmount = Number((fromAmount * data.rate).toFixed(4));
+        setToAmount(toAmount);
+
+        setLastUpdated(
+          data.lastUpdated
+            ? dayjs(data.lastUpdated).format('YYYY-MM-DD HH:mm:ss')
+            : 'None',
+        );
       } else {
         setRate(null);
         setToAmount(0);
@@ -46,24 +37,32 @@ export default function CurrencyConverter() {
       }
     } catch (e) {
       setError('API connected failed');
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchRate();
+    fetch('/api/currencies-list')
+      .then((res) => res.json())
+      .then((data) => setCurrencies(data))
+      .catch(() => setCurrencies([]));
+  }, []);
+
+  useEffect(() => {
+    if (from === to || !from || !to) return;
+    fetchRate(from, to);
   }, [from, to]);
 
   const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
     setFromAmount(val);
+
     if (rate) setToAmount(Number((val * rate).toFixed(4)));
   };
 
   const handleToAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
     setToAmount(val);
+
     if (rate && rate !== 0) setFromAmount(Number((val / rate).toFixed(4)));
   };
 
@@ -77,7 +76,7 @@ export default function CurrencyConverter() {
     setError('');
     try {
       await fetch('/api/rates', { method: 'POST' });
-      await fetchRate();
+      fetchRate(from, to);
     } catch (e) {
       setError('API 連線失敗');
     } finally {
@@ -86,23 +85,67 @@ export default function CurrencyConverter() {
   };
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-xl bg-white p-8 shadow-lg">
+    <div className="relative mx-auto flex max-w-xl flex-col items-center gap-4 rounded-xl border-2 bg-white p-4 shadow-lg md:p-8">
+      <div className="pointer-events-auto absolute top-0 left-0 z-10 h-[110px] w-[110px] overflow-hidden">
+        <a
+          href="https://tw.rter.info"
+          target="_blank"
+          className="absolute top-8 left-[-40px] w-[160px] -rotate-45 bg-green-600 py-1 text-center text-sm font-bold tracking-wider text-white shadow-md duration-200 hover:scale-110"
+        >
+          資料來源
+          <i className="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
+        </a>
+      </div>
+      <img
+        src="/icon-192.png"
+        alt="logo"
+        className="h-24 w-24 duration-200 hover:scale-120 hover:rotate-180"
+      />
+
+      <h1 className="text-center text-3xl">Rate Now</h1>
+
+      <h1 className="text-xl font-bold text-black">
+        {!error && (
+          <div className="flex items-center gap-2">
+            <span className="flex gap-2.5">
+              <CountUp end={1} decimals={1} duration={0.5} preserveValue />
+              <span>{from}</span> ≈
+              <span className="font-bold text-green-600">
+                <CountUp
+                  end={rate ?? 0}
+                  decimals={4}
+                  duration={0.6}
+                  preserveValue
+                />
+              </span>
+              <span>{to}</span>
+            </span>
+          </div>
+        )}
+        {error && <span className="text-red-500">{error}</span>}
+      </h1>
+
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex flex-1 flex-col items-center">
-          <select
-            className="mb-2 w-full rounded border px-3 py-2"
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-          >
-            {CURRENCIES.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.code} - {c.name}
-              </option>
-            ))}
-          </select>
+          <div className="relative w-full">
+            <select
+              className="mb-2 h-11 w-full appearance-none rounded border-2 px-3 py-2"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+            >
+              {currencies.map((code) => (
+                <option key={code} value={code}>
+                  {code} - {CURRENCY_NAME_MAP[code] || code}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute top-6 right-4 -translate-y-3 text-black">
+              <i className="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
           <input
             type="number"
-            className="w-full rounded border px-3 py-2 text-right"
+            className="w-full rounded border-2 px-3 py-2 text-right"
             value={fromAmount}
             min={0}
             onChange={handleFromAmountChange}
@@ -110,28 +153,33 @@ export default function CurrencyConverter() {
         </div>
 
         <button
-          className="m-4 cursor-pointer content-center text-xl text-gray-600 duration-300 hover:scale-125 hover:border-blue-500 hover:text-blue-500"
+          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-4 text-xl text-black duration-300 hover:rotate-180 hover:border-2 hover:border-green-500 hover:text-green-500"
           onClick={handleSwap}
           title="交換幣別"
         >
-          <span className="fa-solid fa-right-left"></span>
+          <span className="fa-solid fa-right-left rotate-90 duration-300 md:rotate-0"></span>
         </button>
 
-        <div className="flex flex-1 flex-col items-center">
-          <select
-            className="mb-2 w-full rounded border px-3 py-2"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-          >
-            {CURRENCIES.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.code} - {c.name}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col items-center">
+          <div className="relative w-full">
+            <select
+              className="mb-2 h-11 w-full appearance-none rounded border-2 px-3 py-2"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            >
+              {currencies.map((code) => (
+                <option key={code} value={code}>
+                  {code} - {CURRENCY_NAME_MAP[code] || code}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute top-6 right-4 -translate-y-3 text-black">
+              <i className="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
           <input
             type="number"
-            className="w-full rounded border px-3 py-2 text-right"
+            className="w-full rounded border border-2 px-3 py-2 text-right"
             value={toAmount}
             min={0}
             onChange={handleToAmountChange}
@@ -139,24 +187,27 @@ export default function CurrencyConverter() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-between gap-2 text-sm text-gray-600 md:flex-row">
-        <div>
-          {rate !== null && !error && (
-            <span>
-              1 {from} ≈ <span className="font-bold text-blue-600">{formatNumber(rate)}</span> {to}
-            </span>
-          )}
-          {error && <span className="text-red-500">{error}</span>}
-        </div>
+      <div className="mt-4 flex-col items-center justify-between gap-2 text-xs md:flex-row">
         <div className="flex items-center gap-2">
           <button
-            className="tex-md cursor-pointer rounded border px-3 py-1 duration-300 hover:bg-blue-600 hover:text-white"
+            className="h-8 w-auto cursor-pointer rounded-md border px-3 py-1 duration-300 hover:bg-yellow-500 hover:text-white"
             onClick={handleManualUpdate}
             disabled={loading}
           >
-            {loading ? '更新中...' : '手動更新'}
+            {loading ? (
+              <div className="flex items-center gap-2">
+                更新中...
+                <span className="fa-solid fa-spinner animate-spin"></span>
+              </div>
+            ) : (
+              <div>
+                刷新 <span className="fa-solid fa-cloud-arrow-up"></span>
+              </div>
+            )}
           </button>
-          {lastUpdated && <span>最後更新：{lastUpdated}</span>}
+          <div className="text-gray-700 underline">
+            {lastUpdated && <span>最後更新匯率時間：{lastUpdated}</span>}
+          </div>
         </div>
       </div>
     </div>
