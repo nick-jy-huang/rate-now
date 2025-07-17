@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.1](https://github.com/nick-jy-huang/rate-now/compare/v1.2.0...v1.2.1) (2025-07-17)
+
+
+### Bug Fixes
+
+* depoly database ([2988d6a](https://github.com/nick-jy-huang/rate-now/commit/2988d6aad905825bca1b6226c0040374c4dab251))
+* depoly prisma ([3194573](https://github.com/nick-jy-huang/rate-now/commit/3194573ef6985540c0ea616ab23f1326c715a34d))
+* postgresql ([b77c052](https://github.com/nick-jy-huang/rate-now/commit/b77c0524157c596245ed3d6b8677e53f7dcebb31))
+* prisma PostgreSQL ([3699f30](https://github.com/nick-jy-huang/rate-now/commit/3699f3016d09b83cefa54dd29610f750671f6fa3))
+* prisma script ([5f050eb](https://github.com/nick-jy-huang/rate-now/commit/5f050ebc729702c944d089ac3c49bfacb1f5dee0))
+
 ## [1.2.0](https://github.com/nick-jy-huang/rate-now/compare/v1.1.1...v1.2.0) (2025-07-16)
 
 
