@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/nick-jy-huang/rate-now/compare/v1.2.1...v1.2.2) (2025-07-17)
+
+
+### Bug Fixes
+
+* remove dev data ([b0c7a20](https://github.com/nick-jy-huang/rate-now/commit/b0c7a209dba587597edfb92bc111661b14dc0918))
+
 ## [1.2.1](https://github.com/nick-jy-huang/rate-now/compare/v1.2.0...v1.2.1) (2025-07-17)
 
 
