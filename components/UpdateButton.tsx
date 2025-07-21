@@ -2,14 +2,17 @@ import React from 'react';
 
 interface UpdateButtonProps {
   loading: boolean;
-  onClick: () => void;
-  className?: string;
   disabled?: boolean;
+  onClick: () => void;
 }
 
-const UpdateButton: React.FC<UpdateButtonProps> = ({ loading, onClick, className, disabled }) => (
+const UpdateButton: React.FC<UpdateButtonProps> = ({
+  loading,
+  disabled,
+  onClick,
+}) => (
   <button
-    className={`h-8 w-auto cursor-pointer rounded-md border px-3 py-1 duration-300 hover:bg-yellow-500 hover:text-white ${className || ''}`}
+    className="h-8 w-auto cursor-pointer rounded-md border border-2 px-4 py-1 duration-300 hover:border-yellow-500 hover:bg-yellow-500 hover:text-white disabled:border-gray-400 disabled:text-gray-400 disabled:hover:bg-transparent"
     onClick={onClick}
     disabled={disabled || loading}
     type="button"
@@ -27,4 +30,4 @@ const UpdateButton: React.FC<UpdateButtonProps> = ({ loading, onClick, className
   </button>
 );
 
-export default UpdateButton; 
+export default UpdateButton;
