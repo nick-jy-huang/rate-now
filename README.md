@@ -61,7 +61,19 @@ flowchart TD
     - 複合唯一鍵：`[date, from, to]`
 - **預設**：PostgreSQL
 
-## 📄 授權
+## 安裝
+
+```
+# database init
+pnpm prisma migrate dev --name init
+pnpm prisma generate
+
+# frontend
+pnpm install
+pnpm dev
+```
+
+## 授權
 
 - MIT License
 - All images are supported by [Flaticon](https://www.flaticon.com/).
