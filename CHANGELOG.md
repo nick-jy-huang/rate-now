@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.2](https://github.com/nick-jy-huang/rate-now/compare/v1.2.1...v1.2.2) (2025-07-21)
+
+
+### Bug Fixes
+
+* api logic and github action ([daa3749](https://github.com/nick-jy-huang/rate-now/commit/daa3749c17206f1e8a03a5c9b89618770611a138))
+* cleanup components ([ae03fa5](https://github.com/nick-jy-huang/rate-now/commit/ae03fa540f49df5e2039d706cdfa1958bc39f66e))
+* migration init ([55d19d0](https://github.com/nick-jy-huang/rate-now/commit/55d19d01621419233112181078ea82d5c191efcb))
+* page ([6539b0d](https://github.com/nick-jy-huang/rate-now/commit/6539b0d7d86ae2502688b3ae60af7b7fd8fa37e9))
+* remove dev data ([b0c7a20](https://github.com/nick-jy-huang/rate-now/commit/b0c7a209dba587597edfb92bc111661b14dc0918))
+* utils and constants ([3e979f6](https://github.com/nick-jy-huang/rate-now/commit/3e979f60d4d73ae96d3f4672ad95958e86efa4fd))
+
 ## [1.2.1](https://github.com/nick-jy-huang/rate-now/compare/v1.2.0...v1.2.1) (2025-07-17)
 
 
