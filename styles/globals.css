@@ -13,7 +13,7 @@ body {
   background-image: url('/icon-192.png');
   background-repeat: repeat, repeat;
   opacity: 0.1;
-  animation: moveTiles 100s linear infinite;
+  /* animation: moveTiles 100s linear infinite; */
   transform: rotate(-45deg);
 }
 
@@ -40,7 +40,7 @@ body {
   left: -30px;
   top: 32px;
   width: 160px;
-  background-color: #16a34a; /* Tailwind green-600 */
+  background-color: #16a34a;
   color: #fff;
   padding: 5px 0;
   text-align: center;

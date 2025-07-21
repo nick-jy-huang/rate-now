@@ -87,7 +87,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="font-san flex min-h-screen items-start justify-center p-4 sm:items-center">
+    <main className="font-san flex h-screen items-start justify-center p-4 sm:items-center">
       <div className="relative flex w-full flex-col items-center gap-4 rounded-xl border-2 bg-white p-8 shadow-lg sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2 2xl:w-1/3">
         <Ribbon href="https://tw.rter.info">資料來源</Ribbon>
         <img
