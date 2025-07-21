@@ -27,6 +27,3 @@ export const SYMBOLS: Record<string, string> = {
 };
 
 export const CURRENCIES = Object.keys(CURRENCY_NAME_MAP);
-
-export const HISTORY_DAYS = 30;
-export const CACHE_FILE = path.join(process.cwd(), 'public', 'rates.json');
