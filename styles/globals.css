@@ -5,18 +5,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.bg-animated-tiles {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: url('/icon-192.png');
-  background-repeat: repeat, repeat;
-  opacity: 0.1;
-  /* animation: moveTiles 100s linear infinite; */
-  transform: rotate(-45deg);
-}
-
 @keyframes moveTiles {
   0% {
     background-position: 0px 0px;
@@ -26,27 +14,14 @@ body {
   }
 }
 
-.ribbon-wrap {
-  width: 110px;
-  height: 110px;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: auto;
-}
-.ribbon {
-  position: absolute;
-  left: -30px;
-  top: 32px;
-  width: 160px;
-  background-color: #16a34a;
-  color: #fff;
-  padding: 5px 0;
-  text-align: center;
+.bg-animated-tiles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('/icon-192.png');
+  background-repeat: repeat, repeat;
+  opacity: 0.1;
+  animation: moveTiles 100s linear infinite;
   transform: rotate(-45deg);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
 }
