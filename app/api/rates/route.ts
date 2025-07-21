@@ -17,6 +17,15 @@ export async function GET(req: NextRequest) {
 
   try {
     if (from && to) {
+      if (from === to) {
+        return NextResponse.json({
+          from,
+          to,
+          rate: 1,
+          date,
+          lastUpdated: today,
+        });
+      }
       const rateRow = await prisma.rate.findUnique({
         where: { date_from_to: { date, from, to } },
       });
