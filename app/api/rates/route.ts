@@ -23,19 +23,20 @@ export async function GET(req: NextRequest) {
           to,
           rate: 1,
           date,
-          lastUpdated: today,
+          updatedAt: today,
         });
       }
       const rateRow = await prisma.rate.findUnique({
         where: { date_from_to: { date, from, to } },
       });
+
       if (rateRow) {
         return NextResponse.json({
           from,
           to,
           rate: rateRow.rate,
           date: rateRow.date,
-          lastUpdated: rateRow.updatedAt,
+          updatedAt: rateRow.updatedAt,
         });
       } else {
         return NextResponse.json(
