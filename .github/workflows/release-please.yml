@@ -1,17 +1,19 @@
-name: Update Rates via API
+name: Release Please
 
 on:
-  schedule:
-    - cron: '10 2 * * *'
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  update-rates:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger API to update rates
-        run: |
-          curl -X POST https://rate-now.vercel.app/api/rates \
-            -H "Content-Type: application/json" \
-            -w "\nStatus: %{http_code}\n" \
-            --fail
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
+          token: ${{ secrets.RELEASE_TOKEN }}
