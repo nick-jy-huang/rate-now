@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/nick-jy-huang/rate-now/compare/v1.2.2...v1.3.0) (2025-07-24)
+
+
+### Features
+
+* vitest ([f9c3669](https://github.com/nick-jy-huang/rate-now/commit/f9c36695ea2a5823237e331b78e0245ede275f54))
+
+
+### Bug Fixes
+
+* api updated time ([ab986cb](https://github.com/nick-jy-huang/rate-now/commit/ab986cb4b7ae4c57d6f31d41ccd23af7ca67b3f6))
+* github actipn job ([f93200e](https://github.com/nick-jy-huang/rate-now/commit/f93200e09bc43893a6536e92e7f2c748bb557609))
+* same currency compare error ([1980df1](https://github.com/nick-jy-huang/rate-now/commit/1980df112ba0089f73ef10556b2b88b54195add2))
+
 ## [1.2.2](https://github.com/nick-jy-huang/rate-now/compare/v1.2.1...v1.2.2) (2025-07-21)
 
 
