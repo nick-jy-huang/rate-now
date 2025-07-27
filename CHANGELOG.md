@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/nick-jy-huang/rate-now/compare/v1.3.0...v1.3.1) (2025-07-27)
+
+
+### Bug Fixes
+
+* update github action time ([402e3da](https://github.com/nick-jy-huang/rate-now/commit/402e3da4ae6400906e051858136acc98c23bd837))
+
 ## [1.3.0](https://github.com/nick-jy-huang/rate-now/compare/v1.2.2...v1.3.0) (2025-07-24)
 
 
